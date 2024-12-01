@@ -1,6 +1,11 @@
-use std::fs;
+use std::{collections::HashMap, fs};
 
 fn main() {
+    part_one();
+    part_two();
+}
+
+fn parse_input() -> (Vec<i32>, Vec<i32>) {
     let content = fs::read_to_string("src/input.txt").unwrap();
     let lines = content.lines();
 
@@ -17,6 +22,12 @@ fn main() {
         list_two.push(value_two);
     });
 
+    (list_one, list_two)
+}
+
+fn part_one() {
+    let (mut list_one, mut list_two) = parse_input();
+
     list_one.sort();
     list_two.sort();
 
@@ -26,5 +37,25 @@ fn main() {
         .map(|(x, y)| i32::abs(x - y))
         .sum();
 
+    println!("{}", result);
+}
+
+fn part_two() {
+    let (list_one, list_two) = parse_input();
+
+    let mut counting_map: HashMap<i32, i32> = HashMap::new();
+
+    list_one.iter().for_each(|value| {
+        let mut count = 0;
+        list_two.iter().for_each(|x| {
+            if value == x {
+                count += 1
+            }
+        });
+
+        counting_map.insert(*value, count);
+    });
+
+    let result: i32 = counting_map.iter().map(|(key, value)| key * value).sum();
     println!("{}", result);
 }
