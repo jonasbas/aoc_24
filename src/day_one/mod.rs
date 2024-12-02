@@ -1,7 +1,7 @@
 use std::{collections::HashMap, fs};
 
 fn parse_input() -> (Vec<i32>, Vec<i32>) {
-    let content = fs::read_to_string("src/input.txt").unwrap();
+    let content = fs::read_to_string("src/day_one/input.txt").unwrap();
     let lines = content.lines();
 
     let mut list_one = vec![];
